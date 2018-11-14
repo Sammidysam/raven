@@ -1,1 +1,20 @@
-This is a readme for the algorithm. It has nothing now.
+Sentiment Analysis Algorithm
+-Parses through a Tweet and formulates a numeric favorability rating based on keywords in that tweet and various other factors
+
+FACTORS
+Keywords - Words in the tweet that have definite +/- value
+
+Account Lean - The identifying lean of the account making the tweet. If we considered the political left to be negatie numbers (left of 0) then the lean rating of NPR would be something like -5, while FOX's lean rating would be somehting like 5
+
+Other things to consider/implement
+
+Sarcasm, repeat words, comedians, news organizations, comments, retweets&likes as a multiplier, the person speaking about themself, quotes around word (to indicate sarcasm), nicknames
+
+Structure
+
+The analyzer will read in a tweet and, for each word in the tweet, see if the word belongs to a positive or negative "bucket" of words and adjust the favoribility rating accordingly
+
+nwords - a set of negative words and their impact
+gwords - a set of positive words and their impact
+
+there isnt a set for neutral words because it would be faster to just analyze the words that will affect the rating than to recognize words that wont 
