@@ -12,3 +12,11 @@ Then, take the compiled library files (the files that end up in `lib`), and
 move them into the `lib/` subdirectory here.
 Then, when you compile this project and run using the helper script, it will use those
 libraries.
+
+# Running
+
+To run, for now use `make run`.
+(This only applies to the Twitter grabber.)
+In the future, better scripts will probably be made.
+This is necessary because the library load path needs to be appended
+in order for the Twitter library to be used.
