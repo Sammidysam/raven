@@ -1,5 +1,7 @@
 #include "twitgrab.h"
 
+#include "secrets.h"
+
 void printUsage()
 {
     printf( "\nUsage:\ntwitterClient -u username -p password\n" );
@@ -78,8 +80,8 @@ int main( int argc, char* argv[] )
 
     /* OAuth flow begins */
     /* Step 0: Set OAuth related params. These are got by registering your app at twitter.com */
-    twitterObj.getOAuth().setConsumerKey( std::string( "2Kdg60HDmZEu2NXIp7MRMBQIm" ) );
-    twitterObj.getOAuth().setConsumerSecret( std::string( "IQcdiWnJd1bsWHytbLmSZa4aNxlPJ5Jr9ZjwOPjiDp31Tyactn" ) );
+    twitterObj.getOAuth().setConsumerKey( std::string( TWITTER_CONSUMER_API ) );
+    twitterObj.getOAuth().setConsumerSecret( std::string( TWITTER_CONSUMER_SECRET ) );
 
     /* Step 1: Check if we alredy have OAuth access token from a previous run */
     std::string myOAuthAccessTokenKey("");

@@ -2,3 +2,4 @@
 out/*
 twitterClient*
 core
+twitter/secrets.h
