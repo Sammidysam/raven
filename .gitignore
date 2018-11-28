@@ -3,3 +3,4 @@ out/*
 twitterClient*
 core
 twitter/secrets.h
+twitter-rb/secrets.rb
