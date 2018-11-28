@@ -186,10 +186,16 @@ int main (int argc, char* argv[])
     memset( tmpBuf, 0, 1024 );
     fgets( tmpBuf, sizeof( tmpBuf ), stdin );
     tmpStr = tmpBuf;
+    size_t searchLen = tmpStr.length();
+    if (searchLen > 0 && tmpStr[searchLen - 1] == '\n')
+      tmpStr[--searchLen] = '\0';
     printf( "\nLimit search results to: " );
     memset( tmpBuf, 0, 1024 );
     fgets( tmpBuf, sizeof( tmpBuf ), stdin );
     tmpStr2 = tmpBuf;
+    size_t countLen = tmpStr2.length();
+    if (countLen > 0 && tmpStr2[countLen - 1] == '\n')
+      tmpStr2[--countLen] = '\0';
     replyMsg = "";
     if( twitterObj.search( tmpStr, tmpStr2 ) )
     {
