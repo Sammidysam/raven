@@ -1,34 +1,46 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <ctype.h>
+int global_rating=0;
+
 int getrating(char * werd){
   FILE *file = fopen("negative_words.txt", "r");
   char comma[2]=",";
   int i;
   char line[100];
   char *word;
-  char word2 [100];
+  //char *wordlower;
+  char word2[100];
   char * ratingchar;
   int rating;
+  
   //first, check positive words 
   if (file != NULL){
   //parse through each line, grabbing the word and its respective rating 
       while(fgets(line,sizeof line,file) != NULL){
-
-	//word is the word in line n 
+	
 	word=strtok(line,comma);
+	//werd=tolower(werd);
+	//for (int i = 0; sizeof(werd)-1;i++){
+	//printf("%c\n",werd[i]);
+	//werd[i]=tolower(werd[i]);
+	 
+	  //  }
+	
+	//	printf("in getrating\n");
 	sscanf(line,"%s %d",word2, &rating);
       
       for(i=0;i<2;i++){
 	if(i==0){
 	  //get the rating of the word and assign it to ratingchar 
 	 ratingchar = strtok(NULL,comma);
-	 // printf("RATING %s\n", ratingchar); 
+	
  	 }
 	//once rating is declared...
 	else{
 	  //Word found in negative_words, so negate rating 
-	  if (strcmp(werd,word) == 0){
+ 	  if (strcmp(werd,word) == 0){
 	    int mult = -1;
 	    int r = atoi(ratingchar);
 	    return mult * r;
@@ -65,28 +77,52 @@ int getrating(char * werd){
    
 }
 
+int generate_rating(FILE * tweet, char * name){
+  char word[144];
+  int name_found =0;
+  int temp = global_rating;
+  int instance_rating;
+  
+  while(fscanf(tweet, " %144s", word)==1){
+   temp = getrating(word);
+
+   //if (name_found=0){
+   printf("Word/Name \t %s / %s\n",word,name);
+   int check = strcmp(word,name);
+   if (check==0){
+     name_found=1;
+     printf("found name\n");
+     //}
+   }
+    
+  
+    instance_rating = temp + getrating(word);
+    
+    }
+    if(name_found==0){
+      printf("Name not found in tweet\n");
+      instance_rating=0;
+    }
+    else{
+      printf("Name Found\n");
+      global_rating = global_rating + instance_rating;
+    }
+    
+    printf("rating for this instance, where name is %s = %d\n global rating is: %d\n",name, instance_rating, global_rating);
+    
+  return global_rating;
+}
+
 void main(){
-  char *f;
-  f="fuck";
-  char *lost;
-  lost="lost";
-  char *out;
-  out="outrageous";
-  int rating;
-  rating = getrating(f);
-  printf("Rating for %s : %d\n",f, rating);
-  char *boo;
-  boo="boo";
-  rating = getrating(lost);
-  printf("Rating for %s : %d\n",lost,rating);
-  rating = getrating(out);
-  printf("Rating for %s : %d\n",out,rating);
-  char *fine;
-  fine="fine";
-  rating=getrating(fine);
-  printf("Rating for %s : %d\n",fine,rating);
-  char *test;
-  test="test";
-  rating=getrating(test);
-  printf("Rating for %s : %d\n",test,rating);
+  int r;
+  FILE * tw = fopen("tweet.txt","r");
+  char * n = "phil";
+    
+  FILE * tt = fopen("tweet.txt","r");
+  r = generate_rating(tw,n);
+  printf("Favorability rating for OBAMA is: %d\n",r);
+  char * nn = "Obama";
+  int p = generate_rating(tt,nn);
+  printf("Favorability rating for Obama is : %d\n",p);
+  
 }
