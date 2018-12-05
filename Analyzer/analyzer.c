@@ -113,24 +113,23 @@ int generate_rating(FILE * tweet, char * n){
 
     
     global_rating=global_rating + instance_rating;
-    printf("Global Rating for %s : %d \t Instance Rating for %s : %d", name, global_rating, name, instance_rating);
+    //printf("Global Rating for %s : %d \t Instance Rating for %s : %d", name, global_rating, name, instance_rating);
     
     return instance_rating;
 }
 
 void main(){
-  int r;
+  char * name;
+  FILE * INFO = fopen("info.txt","r");
+  char comma [2] = ",";
+  char line[100];
+  while(fgets(line,sizeof line,INFO) != NULL){
+    name=strtok(line,comma);
+  }
+  //printf("name : %s",name);
   FILE * tw = fopen("tweet.txt","r");
-  char * n = "phil";
-    
-  FILE * tt = fopen("tweet.txt","r");
-  r = generate_rating(tw,n);
-  printf("Favorability rating for phil is: %d\n",r);
-  char * nn = "Obama";
-  int p = generate_rating(tt,nn);
-  printf("Favorability rating for Obama is : %d\n",p);
-  FILE * tp = fopen("tweet.txt","r");
-  int f = generate_rating(tp,nn);
-  printf("Global rating: %d\n",global_rating);
+  int p = generate_rating(tw,name);
+  printf("rating for %s: %d\n",name,p);
+  
   
 }
