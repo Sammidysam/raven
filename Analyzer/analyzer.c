@@ -2,6 +2,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <time.h>
+
 int global_rating=0;
 
 int getrating(char * werd){
@@ -130,6 +132,11 @@ void main(){
   FILE * tw = fopen("tweet.txt","r");
   int p = generate_rating(tw,name);
   printf("rating for %s: %d\n",name,p);
+  time_t time_out;
+  time (&time_out);
+  struct tm * localtimeinfo=localtime(&time_out);
+  printf("%s",asctime(localtimeinfo));
+  
   
   
 }
