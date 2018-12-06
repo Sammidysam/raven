@@ -1,21 +1,25 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <ctype.h>
+#include <time.h>
+
+int global_rating=0;
+
 int getrating(char * werd){
   FILE *file = fopen("negative_words.txt", "r");
   char comma[2]=",";
   int i;
   char line[100];
-  char *word;
-  char word2 [100];
+  char * word;
+  char word2[100];
   char * ratingchar;
   int rating;
+  
   //first, check positive words 
   if (file != NULL){
   //parse through each line, grabbing the word and its respective rating 
       while(fgets(line,sizeof line,file) != NULL){
-
-	//word is the word in line n 
 	word=strtok(line,comma);
 	sscanf(line,"%s %d",word2, &rating);
       
@@ -23,19 +27,19 @@ int getrating(char * werd){
 	if(i==0){
 	  //get the rating of the word and assign it to ratingchar 
 	 ratingchar = strtok(NULL,comma);
-	 // printf("RATING %s\n", ratingchar); 
+	
  	 }
 	//once rating is declared...
 	else{
 	  //Word found in negative_words, so negate rating 
-	  if (strcmp(werd,word) == 0){
+ 	  if (strcmp(werd,word2) == 0){
 	    int mult = -1;
 	    int r = atoi(ratingchar);
 	    return mult * r;
 	    }
+	}
       }
-      }
-      }
+  }
       
     fclose(file);
     //end of negative words test
@@ -60,33 +64,79 @@ int getrating(char * werd){
       }
     }
   }
+  fclose(file2);
     //if the word isnt found, its rating is 0
   return 0;
    
 }
 
+int generate_rating(FILE * tweet, char * n){
+  //char word[144];
+  char tweet_word[144]; //the word grabbed from the tweet 
+  char name[144]; //the lowercase version of the name passed in 
+  char punc[5] = ".,!?";
+  int name_found =0;
+  int temp;//= global_rating;
+  int instance_rating = 0;
+  
+  for(int i =0;i<strlen(n);i++){
+    if(isalpha(n[i])&&!ispunct(n[i])){
+      name[i]=tolower(n[i]);
+    }
+  }
+  //name is the tolower() version of name
+  //printf("NEW NAME: %s\n",name);
+  
+  while(fscanf(tweet, " %144s", tweet_word)==1){
+   temp = getrating(tweet_word);
+   instance_rating = instance_rating + temp;
+   for(int i = 0; i < strlen(tweet_word); i++){
+     if (isalpha(tweet_word[i]) && !ispunct(tweet_word[i])){
+       tweet_word[i]=tolower(tweet_word[i]);
+     
+     }
+   }
+  
+   int name_check = strcmp(tweet_word,name);
+   if (name_check==0){
+     name_found=1;
+   }
+   //instance_rating = instance_rating + temp;
+   
+    
+  }
+
+    if(name_found==0){
+      instance_rating=0;
+    }
+    else{
+      instance_rating = temp + instance_rating;
+       }
+
+    
+    global_rating=global_rating + instance_rating;
+    //printf("Global Rating for %s : %d \t Instance Rating for %s : %d", name, global_rating, name, instance_rating);
+    
+    return instance_rating;
+}
+
 void main(){
-  char *f;
-  f="fuck";
-  char *lost;
-  lost="lost";
-  char *out;
-  out="outrageous";
-  int rating;
-  rating = getrating(f);
-  printf("Rating for %s : %d\n",f, rating);
-  char *boo;
-  boo="boo";
-  rating = getrating(lost);
-  printf("Rating for %s : %d\n",lost,rating);
-  rating = getrating(out);
-  printf("Rating for %s : %d\n",out,rating);
-  char *fine;
-  fine="fine";
-  rating=getrating(fine);
-  printf("Rating for %s : %d\n",fine,rating);
-  char *test;
-  test="test";
-  rating=getrating(test);
-  printf("Rating for %s : %d\n",test,rating);
+  char * name;
+  FILE * INFO = fopen("info.txt","r");
+  char comma [2] = ",";
+  char line[100];
+  while(fgets(line,sizeof line,INFO) != NULL){
+    name=strtok(line,comma);
+  }
+  //printf("name : %s",name);
+  FILE * tw = fopen("tweet.txt","r");
+  int p = generate_rating(tw,name);
+  printf("rating for %s: %d\n",name,p);
+  time_t time_out;
+  time (&time_out);
+  struct tm * localtimeinfo=localtime(&time_out);
+  printf("%s",asctime(localtimeinfo));
+  
+  
+  
 }

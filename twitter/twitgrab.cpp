@@ -102,9 +102,17 @@ int main (int argc, char* argv[])
     oAuthTokenKeyIn >> tmpBuf;
     myOAuthAccessTokenKey = tmpBuf;
 
+    size_t accessLen = myOAuthAccessTokenKey.length();
+    if (accessLen > 0 && myOAuthAccessTokenKey[accessLen - 1] == '\n')
+      myOAuthAccessTokenKey[--accessLen] = '\0';
+
     memset( tmpBuf, 0, 1024 );
     oAuthTokenSecretIn >> tmpBuf;
     myOAuthAccessTokenSecret = tmpBuf;
+
+    accessLen = myOAuthAccessTokenSecret.length();
+    if (accessLen > 0 && myOAuthAccessTokenSecret[accessLen - 1] == '\n')
+      myOAuthAccessTokenSecret[--accessLen] = '\0';
 
     oAuthTokenKeyIn.close();
     oAuthTokenSecretIn.close();

@@ -1,10 +1,17 @@
 #! /usr/bin/env ruby
 
+require "json"
 require "twitter"
-require "pry"
 
 require_relative "secrets"
 
+# Make sure we have an argument.
+if ARGV.length < 1
+  puts "Usage: ./twitgrab.rb search-query"
+  exit 1
+end
+
+# Configure Twitter client.
 client = Twitter::REST::Client.new do |config|
   config.consumer_key = CONSUMER_KEY
   config.consumer_secret = CONSUMER_SECRET
@@ -12,6 +19,10 @@ client = Twitter::REST::Client.new do |config|
   config.access_token_secret = ACCESS_TOKEN_SECRET
 end
 
-search = client.search("janet")
+tweets = client.search(ARGV[0]).attrs[:statuses]
 
-binding.pry
+# If needing to loop over each tweet, do
+# tweets.each do |t|
+# here
+
+puts JSON.generate(tweets)
