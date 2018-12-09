@@ -120,7 +120,7 @@ int generate_rating(FILE * tweet, char * n){
     return instance_rating;
 }
 
-void main(){
+int main(){
   char * name;
   FILE * INFO = fopen("info.txt","r");
   char comma [2] = ",";

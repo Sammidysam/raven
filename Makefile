@@ -3,9 +3,12 @@ MODULE_CFLAGS=-DMG_DISABLE_DAV
 
 include ./server/examples.mk
 
-targets=./out/server ## (abandoned) ./out/twitgrab ./out/dbimport
+targets=./out/server ./out/analyzer ## (abandoned) ./out/twitgrab ./out/dbimport
 
 all: $(targets)
+
+./out/analyzer: ./analyzer/analyzer.c
+	gcc -o ./out/analyzer analyzer/analyzer.c
 
 #./out/twitgrab: ./twitter/twitgrab.cpp ./twitter/twitgrab.h ./twitter/secrets.h
 #	g++ ./twitter/twitgrab.cpp -I ./include/ -L ./lib/ -ltwitcurl -o ./out/twitgrab
