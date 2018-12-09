@@ -21,8 +21,4 @@ end
 
 tweets = client.search(ARGV[0]).attrs[:statuses]
 
-# If needing to loop over each tweet, do
-# tweets.each do |t|
-# here
-
 puts JSON.generate(tweets)
