@@ -3,10 +3,10 @@
 static const char *s_http_port = "8000";
 static struct mg_serve_http_opts s_http_server_opts;
 
-//function for linking(){
+void grab_and_analyze () {
+	system("twitter-rb/twitgrab.rb \"Obama\" | jsonloop/jsonloop.rb \"dbimport-sh/dbimport.sh\"");
+}
 
-
-//}
 static void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
   switch (ev) {
     case MG_EV_HTTP_REQUEST:
@@ -16,8 +16,8 @@ static void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
       double now = *(double *) ev_data;
       double next = mg_time() + 60;
       printf("timer event, current time: %.2lf\n", now);
-      //call function();
-      mg_set_timer(c, next);  // Send us timer event again after 0.5 seconds
+      grab_and_analyze();
+      mg_set_timer(c, next);  // Send us timer event again after 60 seconds
       break;
     }
   }

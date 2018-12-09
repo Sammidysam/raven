@@ -8,9 +8,9 @@ if ARGV.length < 1
 	exit 1
 end
 
-input = ARGF.read
+input = STDIN.read
 json = JSON.parse(input)
 
 json.each do |j|
-	system(ARGV[0])
+	system(ARGV[0] + " \"" + JSON.generate(j).gsub("\"", "\\\"") + "\"")
 end
