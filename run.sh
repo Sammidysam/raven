@@ -1,3 +1,3 @@
 #! /bin/bash
 
-server/timers
+out/server

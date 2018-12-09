@@ -1,4 +1,4 @@
-SOURCES = $(PROG).c ./mongoose.c
+SOURCES = server/$(notdir $(PROG)).c ./server/mongoose.c
 CFLAGS = -g -W -Wall -Werror -I./. -Wno-unused-function $(CFLAGS_EXTRA) $(MODULE_CFLAGS)
 
 all: $(PROG)
