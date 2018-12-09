@@ -140,10 +140,11 @@ int main(int argc, char *argv[]){
       int l = 0; //likes
       int r = 0; //retweets
       int i = 0; //the id of the tweet
-      char * t; //the tweet text 
+      char * t; //the tweet text
+      char * date; //the date the tweet was sent 
   char * name;
   if(argc>1){
-    while((ch = getopt(argc,argv,"n:l:r:i:t:")) != -1){
+    while((ch = getopt(argc,argv,"n:l:r:i:t:d:")) != -1){
       switch(ch){
       case 'n':
 	name = optarg;
@@ -160,7 +161,8 @@ int main(int argc, char *argv[]){
       case 't':
 	t=optarg;
 	break;
-
+      case 'd':
+	date=optarg;
       default:
 	printf("Usage: ./analyzer -n <name> -l <likes> -r <retweets> -i<id> -t<tweet text>");
 	exit(1);
@@ -177,15 +179,15 @@ int main(int argc, char *argv[]){
   }
   //printf("name : %s",name);
   FILE * tw = fopen("tweet.txt","r");
-  int p = generate_rating(tw,name);
+  int rating = generate_rating(tw,name);
   //printf("rating for %s: %d\n",name,p);
   time_t time_out = time(NULL);
   char * time_str = ctime(&time_out);
   time_str[strlen(time_str)-1] = '\0'; 
-  printf("%s,%i,%d\n",time_str,i,p);
-  printf("likes : %d\n",l);
-  printf("retweets: %d\n",r);
-  printf("tweet: %s\n",t);
+  printf("%s,%i,%d,%s\n",time_str,i,rating,date);
+  //printf("likes : %d\n",l);
+  //printf("retweets: %d\n",r);
+  //printf("tweet: %s\n",t);
   //use getoptlong to parse commands
   
   
