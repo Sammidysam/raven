@@ -1,3 +1,3 @@
 #! /bin/bash
 
-LD_LIBRARY_PATH=lib/ out/twitgrab $@
+server/timers
