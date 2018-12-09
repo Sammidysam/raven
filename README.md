@@ -7,7 +7,7 @@ Before the program is even compiled, you must copy `twitter/secrets.h.sample` to
 
 # Compiling
 
-The C server can be compiled by running `make` in the root directory.
+The C server and C analyzer can be compiled by running `make` in the root directory.
 All compiled binaries will be outputted into the `out/` directory.
 
 Note: The following paragraph applies to the failed attempt to write the Twitter grabber in C++.
