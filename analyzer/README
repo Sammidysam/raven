@@ -14,7 +14,15 @@ Structure
 
 The analyzer will read in a tweet and, for each word in the tweet, see if the word belongs to a positive or negative "bucket" of words and adjust the favoribility rating accordingly
 
-nwords - a set of negative words and their impact
-gwords - a set of positive words and their impact
+negative_words - a set of negative words and their impact
+positive_words - a set of positive words and their impact
 
 there isnt a set for neutral words because it would be faster to just analyze the words that will affect the rating than to recognize words that wont 
+
+Lexicon and Weights
+
+I considered having each word be valued at +/- 1 and having the algorithm simply add the weights to determine te value, but this would be less accurate because some words are more powerful than others
+
+To get around this, each word is weighted relative to the key word in the respective lexicon. These keywords are bad (for negative_words) and good (for positive words) which are both valued at -10 and 10 respectively (this lets us form the overall rating without having to add decimals. The rest of the weights revolve around these terms (a word more 'powerful' than "bad" might have a rating of 12 etc)
+
+Words that are generally negative, but could be positive, or frequently used will have a lesser value than 10

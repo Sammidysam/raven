@@ -26,7 +26,7 @@ mccarthyism,13
 suicide,16
 pork barrel,15
 smoke filled,15
-witch hunt,9
+witch hunt,13
 witch,9
 snarky,5
 rude,5

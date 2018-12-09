@@ -3,9 +3,23 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <time.h>
+#include <getopt.h>
 
 int global_rating=0;
 
+void strip_word(char *src){
+  int i = 0;
+  int p = 0;
+  int len = strlen(src);
+  for (i=0;i<len;i++){
+    if(! ispunct(src[i])){
+	src[p]=tolower(src[i]);
+	p++;
+    }
+  }
+}
+      
+	
 int getrating(char * werd){
   FILE *file = fopen("negative_words.txt", "r");
   char comma[2]=",";
@@ -15,7 +29,9 @@ int getrating(char * werd){
   char word2[100];
   char * ratingchar;
   int rating;
-  
+  printf("werd: %s\n",werd);
+  strip_word(werd);
+  printf("stripped werd: %s\n",werd);
   //first, check positive words 
   if (file != NULL){
   //parse through each line, grabbing the word and its respective rating 
@@ -119,9 +135,40 @@ int generate_rating(FILE * tweet, char * n){
     
     return instance_rating;
 }
-
-int main(){
+int main(int argc, char *argv[]){
+      int ch;
+      int l = 0; //likes
+      int r = 0; //retweets
+      int i = 0; //the id of the tweet
+      char * t; //the tweet text 
   char * name;
+  if(argc>1){
+    while((ch = getopt(argc,argv,"n:l:r:i:t:")) != -1){
+      switch(ch){
+      case 'n':
+	name = optarg;
+	break;
+      case 'l':
+	l=atoi(optarg);
+	break;
+      case 'r':
+	r=atoi(optarg);
+	break;
+      case 'i':
+	i=atoi(optarg);
+	break;
+      case 't':
+	t=optarg;
+	break;
+
+      default:
+	printf("Usage: ./analyzer -n <name> -l <likes> -r <retweets> -i<id> -t<tweet text>");
+	exit(1);
+      }
+    }
+  }
+      
+      
   FILE * INFO = fopen("info.txt","r");
   char comma [2] = ",";
   char line[100];
@@ -131,12 +178,15 @@ int main(){
   //printf("name : %s",name);
   FILE * tw = fopen("tweet.txt","r");
   int p = generate_rating(tw,name);
-  printf("rating for %s: %d\n",name,p);
-  time_t time_out;
-  time (&time_out);
-  struct tm * localtimeinfo=localtime(&time_out);
-  printf("%s",asctime(localtimeinfo));
-  
+  //printf("rating for %s: %d\n",name,p);
+  time_t time_out = time(NULL);
+  char * time_str = ctime(&time_out);
+  time_str[strlen(time_str)-1] = '\0'; 
+  printf("%s,%i,%d\n",time_str,i,p);
+  printf("likes : %d\n",l);
+  printf("retweets: %d\n",r);
+  printf("tweet: %s\n",t);
+  //use getoptlong to parse commands
   
   
 }
