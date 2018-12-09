@@ -1,3 +1,3 @@
 #!/bin/sh
 
-mongoimport --db raven --collection funfundata 
+mongoimport --db raven --collection tweets <<< "$1"

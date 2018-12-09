@@ -10,6 +10,8 @@ Before the program is even compiled, you must copy `twitter/secrets.h.sample` to
 The C server and C analyzer can be compiled by running `make` in the root directory.
 All compiled binaries will be outputted into the `out/` directory.
 
+Be sure to run `bundle install` to make sure that the Twitter grabber works!
+
 Note: The following paragraph applies to the failed attempt to write the Twitter grabber in C++.
 If you seek to make this work using C++, follow the instruction below; otherwise, use the Ruby grabber.
 To use the C++ Twitter grabber, you will also need to uncomment Makefile rules that were removed when these areas were abandoned.
