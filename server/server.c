@@ -4,10 +4,7 @@ static const char *s_http_port = "8000";
 static struct mg_serve_http_opts s_http_server_opts;
 
 void grab_and_analyze () {
-	system("twitter-rb/twitgrab.rb \"Obama\" > Obama.json");
-	system("dbimport-sh/dbimport.sh Obama.json");
-	system("jsonhandler/jsonhandler.rb \"Obama\" < Obama.json");
-	system("rm Obama.json");
+	system("linking/linking.sh");
 }
 
 static void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
