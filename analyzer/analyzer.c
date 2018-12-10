@@ -21,7 +21,7 @@ void strip_word(char *src){
       
 	
 int getrating(char * werd){
-  FILE *file = fopen("negative_words.txt", "r");
+  FILE *file = fopen("analyzer/negative_words.txt", "r");
   char comma[2]=",";
   int i;
   char line[100];
@@ -60,7 +60,7 @@ int getrating(char * werd){
     fclose(file);
     //end of negative words test
   }
-  FILE *file2 = fopen("positive_words.txt","r");
+  FILE *file2 = fopen("analyzer/positive_words.txt","r");
   if(file2!=NULL){
     while(fgets(line,sizeof line, file) != NULL){
       word=strtok(line,comma);

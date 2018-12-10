@@ -4,7 +4,7 @@ static const char *s_http_port = "8000";
 static struct mg_serve_http_opts s_http_server_opts;
 
 void grab_and_analyze () {
-	system("twitter-rb/twitgrab.rb \"Obama\" | jsonloop/jsonloop.rb \"dbimport-sh/dbimport.sh\"");
+	system("linking/linking.sh");
 }
 
 static void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
@@ -39,7 +39,7 @@ int main(void) {
   s_http_server_opts.document_root = ".";  // Serve current directory
 
   // Send us MG_EV_TIMER event after 2.5 seconds
-  mg_set_timer(c, mg_time() + 60);
+  mg_set_timer(c, mg_time() + 5);
 
   printf("Starting on port %s, time: %.2lf\n", s_http_port, mg_time());
   for (;;) {
