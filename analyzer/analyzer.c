@@ -165,7 +165,7 @@ int main(int argc, char *argv[]){
 	date=optarg;
 	break;y
       default:
-	printf("Usage: ./analyzer -n <name> -l <likes> -r <retweets> -i<id> -t<tweet text>");
+	printf("Usage: ./analyzer -n <name> -l <likes> -r <retweets> -i<id> -t<tweet text>\n");
 	exit(1);
       }
     }
