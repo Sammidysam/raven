@@ -29,9 +29,9 @@ int getrating(char * werd){
   char word2[100];
   char * ratingchar;
   int rating;
-  printf("werd: %s\n",werd);
-  strip_word(werd);
-  printf("stripped werd: %s\n",werd);
+  //printf("werd: %s\n",werd);
+  //strip_word(werd);
+  //printf("stripped werd: %s\n",werd);
   //first, check positive words 
   if (file != NULL){
   //parse through each line, grabbing the word and its respective rating 
@@ -86,7 +86,7 @@ int getrating(char * werd){
    
 }
 
-int generate_rating(FILE * tweet, char * n){
+int generate_rating(char * tweet, char * n){
   //char word[144];
   char tweet_word[144]; //the word grabbed from the tweet 
   char name[144]; //the lowercase version of the name passed in 
@@ -94,7 +94,7 @@ int generate_rating(FILE * tweet, char * n){
   int name_found =0;
   int temp;//= global_rating;
   int instance_rating = 0;
-  
+  char space [1] = " ";
   for(int i =0;i<strlen(n);i++){
     if(isalpha(n[i])&&!ispunct(n[i])){
       name[i]=tolower(n[i]);
@@ -103,7 +103,10 @@ int generate_rating(FILE * tweet, char * n){
   //name is the tolower() version of name
   //printf("NEW NAME: %s\n",name);
   
-  while(fscanf(tweet, " %144s", tweet_word)==1){
+  //while(fscanf(tweet, " %144s", tweet_word)==1){
+  char *token = strtok(tweet,space);
+  
+  while(token != NULL){
    temp = getrating(tweet_word);
    instance_rating = instance_rating + temp;
    for(int i = 0; i < strlen(tweet_word); i++){
@@ -127,9 +130,9 @@ int generate_rating(FILE * tweet, char * n){
     }
     else{
       instance_rating = temp + instance_rating;
-       }
+    }
 
-    
+    token = strtok(tweet,space);
     global_rating=global_rating + instance_rating;
     //printf("Global Rating for %s : %d \t Instance Rating for %s : %d", name, global_rating, name, instance_rating);
     
@@ -163,24 +166,30 @@ int main(int argc, char *argv[]){
 	break;
       case 'd':
 	date=optarg;
-	break;y
+	break;
       default:
 	printf("Usage: ./analyzer -n <name> -l <likes> -r <retweets> -i<id> -t<tweet text>\n");
 	exit(1);
       }
     }
   }
+  else{
+    printf("Usage: ./analyzer -n <name> -l <likes> -r <retweets> -i <id> -t <tweet text> \n");
+    exit(1);
+  }
+  
       
       
   FILE * INFO = fopen("info.txt","r");
   char comma [2] = ",";
-  char line[100];
+  /*char line[100];
   while(fgets(line,sizeof line,INFO) != NULL){
     name=strtok(line,comma);
   }
+  */
   //printf("name : %s",name);
-  FILE * tw = fopen("tweet.txt","r");
-  int rating = generate_rating(tw,name);
+  //FILE * tw = fopen("tweet.txt","r");
+  int rating = generate_rating(t,name);
   //printf("rating for %s: %d\n",name,p);
   time_t time_out = time(NULL);
   char * time_str = ctime(&time_out);
