@@ -163,7 +163,7 @@ int main(int argc, char *argv[]){
 	break;
       case 'd':
 	date=optarg;
-	break;y
+	break;
       default:
 	printf("Usage: ./analyzer -n <name> -l <likes> -r <retweets> -i<id> -t<tweet text>\n");
 	exit(1);
