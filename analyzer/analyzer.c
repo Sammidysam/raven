@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -51,6 +52,7 @@ int getrating(char * werd){
  	  if (strcmp(werd,word2) == 0){
 	    int mult = -1;
 	    int r = atoi(ratingchar);
+	    //printf("rating in getrating : %d",r);
 	    return mult * r;
 	    }
 	}
@@ -94,48 +96,62 @@ int generate_rating(char * tweet, char * n){
   int name_found =0;
   int temp;//= global_rating;
   int instance_rating = 0;
-  char space [1] = " ";
+  char space [2] = " ";
+  
   for(int i =0;i<strlen(n);i++){
     if(isalpha(n[i])&&!ispunct(n[i])){
       name[i]=tolower(n[i]);
     }
   }
-  //name is the tolower() version of name
-  //printf("NEW NAME: %s\n",name);
-  
+  //printf("name: %s\n",name);
   //while(fscanf(tweet, " %144s", tweet_word)==1){
-  char *token = strtok(tweet,space);
-  
-  while(token != NULL){
+
+  while(sscanf(tweet, " %144s", tweet_word)==1){
+    
+   int length = strlen(tweet_word);
+    //while(tweet_word != NULL){
    temp = getrating(tweet_word);
+   // printf("tweet word: %s* \t temp : %d\n",tweet_word,temp);
    instance_rating = instance_rating + temp;
+   // printf("instance_rating: %d\n",instance_rating);
    for(int i = 0; i < strlen(tweet_word); i++){
      if (isalpha(tweet_word[i]) && !ispunct(tweet_word[i])){
        tweet_word[i]=tolower(tweet_word[i]);
-     
      }
    }
-  
-   int name_check = strcmp(tweet_word,name);
+   // printf("new tweet_word : %s\n",tweet_word);
+   //printf("strings being compared : **%s** \t **%s**\n",tweet_word,name);
+   //printf("obama vs obama : %d\n",strcmp("obama","obama"));
+   char constname [strlen(name)];
+   char constw [strlen(tweet_word)];
+   strcpy(constname,name);
+   strcpy(constw,tweet_word);
+   // printf("strings being compared %s \t %s\n",constw,constname);
+   // printf("***%d***",strcmp(constw,constname));
+   int name_check = strcmp(constw,constname);
+   
+   //printf("\nnamecheck : %d\n",name_check);
    if (name_check==0){
+     //printf("name found\n");
      name_found=1;
    }
    //instance_rating = instance_rating + temp;
    
-    
+   tweet=&tweet[length];
+  }
+  
+  // printf("name_found: %d \n",name_found); 
+  if(name_found==0){
+    instance_rating=0;
+  }
+  else{
+    instance_rating = temp + instance_rating;
   }
 
-    if(name_found==0){
-      instance_rating=0;
-    }
-    else{
-      instance_rating = temp + instance_rating;
-    }
-
-    token = strtok(tweet,space);
-    global_rating=global_rating + instance_rating;
-    //printf("Global Rating for %s : %d \t Instance Rating for %s : %d", name, global_rating, name, instance_rating);
-    
+    //token = strtok(NULL,space);
+    //global_rating=global_rating + instance_rating;
+    // printf("Global Rating for %s : %d \t Instance Rating for %s : %d", name, global_rating, name, instance_rating);
+    //printf("***final instance rating : %d",instance_rating);
     return instance_rating;
 }
 int main(int argc, char *argv[]){
@@ -180,8 +196,8 @@ int main(int argc, char *argv[]){
   
       
       
-  FILE * INFO = fopen("info.txt","r");
-  char comma [2] = ",";
+  //FILE * INFO = fopen("info.txt","r");
+  //char comma [2] = ",";
   /*char line[100];
   while(fgets(line,sizeof line,INFO) != NULL){
     name=strtok(line,comma);
@@ -189,7 +205,9 @@ int main(int argc, char *argv[]){
   */
   //printf("name : %s",name);
   //FILE * tw = fopen("tweet.txt","r");
+  //printf("%s\n",t);
   int rating = generate_rating(t,name);
+  //printf("rating : %d",rating);
   //printf("rating for %s: %d\n",name,p);
   time_t time_out = time(NULL);
   char * time_str = ctime(&time_out);
