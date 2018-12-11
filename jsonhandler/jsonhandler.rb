@@ -19,5 +19,5 @@ json.each do |j|
 	text = j["text"].gsub('"', '\\"')
 	date = j["created_at"]
 
-	system("out/analyzer -n \"#{name}\" -l \"#{likes}\" -r \"#{retweets}\" -i \"#{id}\" -t \"#{text}\" -d \"#{date}\" >> #{name}.out")
+	system("out/analyzer -n \"#{name}\" -l \"#{likes}\" -r \"#{retweets}\" -i \"#{id}\" -t \"#{text}\" -d \"#{date}\" >> \"#{name}.out\"")
 end

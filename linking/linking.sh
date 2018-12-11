@@ -3,10 +3,10 @@
 while read p
 do
 	name="$p"
-	file="$p.json"
+	file="${p// /_}.json"
 
-	twitter-rb/twitgrab.rb $name > $file
-	dbimport-sh/dbimport.sh $file
-	jsonhandler/jsonhandler.rb $name < $file
-	rm $file
+	twitter-rb/twitgrab.rb "$name" > "$file"
+	dbimport-sh/dbimport.sh "$file"
+	jsonhandler/jsonhandler.rb "$name" < "$file"
+	rm "$file"
 done < analyses.txt
