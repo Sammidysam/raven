@@ -14,7 +14,7 @@ static void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
       break;
     case MG_EV_TIMER: {
       double now = *(double *) ev_data;
-      double next = mg_time() + 60;
+      double next = mg_time() + 21600;
       printf("timer event, current time: %.2lf\n", now);
       grab_and_analyze();
       mg_set_timer(c, next);  // Send us timer event again after 60 seconds
