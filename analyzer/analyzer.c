@@ -135,12 +135,13 @@ int main(int argc, char *argv[]){
       int ch;
       int l = 0; //likes
       int r = 0; //retweets
-      int i = 0; //the id of the tweet
+      char * id; //the id of the tweet
       char * t; //the tweet text
-      char * date; //the date the tweet was sent 
+      char * date; //the date the tweet was sent
+      char * link; //the web link of the tweet
   char * name;
   if(argc>1){
-    while((ch = getopt(argc,argv,"n:l:r:i:t:d:")) != -1){
+    while((ch = getopt(argc,argv,"n:l:r:i:t:d:w:")) != -1){
       switch(ch){
       case 'n':
 	name = optarg;
@@ -152,13 +153,16 @@ int main(int argc, char *argv[]){
 	r=atoi(optarg);
 	break;
       case 'i':
-	i=atoi(optarg);
+	id=optarg;
 	break;
       case 't':
 	t=optarg;
 	break;
       case 'd':
 	date=optarg;
+	break;
+      case 'w':
+	link=optarg;
 	break;
       default:
 	printf("Usage: ./analyzer -n <name> -l <likes> -r <retweets> -i<id> -t<tweet text>\n");
@@ -175,6 +179,6 @@ int main(int argc, char *argv[]){
   time_t time_out = time(NULL);
   char * time_str = ctime(&time_out);
   time_str[strlen(time_str)-1] = '\0'; 
-  printf("%s,%i,%d,%s\n",time_str,i,rating,date);
+  printf("%s,%s,%d,%s,%s\n",time_str,id,rating,date,link);
   
 }
