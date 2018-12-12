@@ -7,3 +7,4 @@ twitter-rb/secrets.rb
 server/timers
 *.out
 mongo.log
+server.log
