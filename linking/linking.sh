@@ -10,3 +10,5 @@ do
 	jsonhandler/jsonhandler.rb "$name" < "$file"
 	rm "$file"
 done < analyses.txt
+
+dbimport-sh/exportall.sh raven
