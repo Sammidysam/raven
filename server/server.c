@@ -4,6 +4,7 @@ static const char *s_http_port = "8000";
 static struct mg_serve_http_opts s_http_server_opts;
 
 void grab_and_analyze () {
+	printf("Running linking script\n");
 	system("linking/linking.sh");
 }
 

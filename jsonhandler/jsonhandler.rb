@@ -18,6 +18,7 @@ json.each do |j|
 	id = j["id"]
 	text = j["text"].gsub('"', '\\"')
 	date = j["created_at"]
+	web = j["entities"]["urls"].empty? ? "null" : j["entities"]["urls"][0]["url"]
 
-	system("out/analyzer -n \"#{name}\" -l \"#{likes}\" -r \"#{retweets}\" -i \"#{id}\" -t \"#{text}\" -d \"#{date}\" >> \"#{name}.out\"")
+	system("out/analyzer -n \"#{name}\" -l \"#{likes}\" -r \"#{retweets}\" -i \"#{id}\" -t \"#{text}\" -d \"#{date}\" -w \"#{web}\" >> \"#{name}.out\"")
 end
