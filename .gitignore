@@ -8,3 +8,5 @@ server/timers
 *.out
 mongo.log
 server.log
+tweets_*.json
+system.indexes.json
