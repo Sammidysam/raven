@@ -84,8 +84,10 @@ createGraph = function (data) {
 setGraph = function (person) {
 	// Start by informing the user that we are loading data.
 	var canvasDiv = $("#loading")
+	var canvas = $("#canvas")
 
 	canvasDiv.text("Loading data...")
+	canvas.html("")
 
 	var file = "/" + person + ".out"
 
