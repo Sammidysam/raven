@@ -93,9 +93,9 @@ setGraph = function (person) {
 
 	$.get(file, function (data) {
 		createGraph(createData(person, data))
-	})
 
-	canvasDiv.text("")
+		canvasDiv.text("")
+	})
 }
 
 // Determine who we will display analysis for.
