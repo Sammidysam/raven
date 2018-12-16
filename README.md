@@ -33,3 +33,14 @@ This will run the server which is the mastermind that links every other file.
 
 Note: If you seek to run the C++ Twitter grabber after compiling it, you will likely need to append the library load path to be able to run it.
 An example of doing this is contained in the old `run.sh`, which you can find [here](https://raw.githubusercontent.com/Sammidysam/raven/738d057b33675ace3fafec37d8ffb740e3d0a5b2/run.sh).
+
+To later view analysis results, you will likely want to use the `graph.html` page provided in the root directory.
+This page will load JavaScript that will graph your analysis results into a total aggregate rating over time.
+
+# Configuration
+
+The main configuration file is `analyses.txt`.
+This file contains each separate analysis to be run on a new line.
+The corresponding `graph.html` file will graph each of them into a separate graph.
+
+The server will grab new data from Twitter every six hours; this is not in a configuration file unfortunately, so the server would have to be recompiled to change this.
