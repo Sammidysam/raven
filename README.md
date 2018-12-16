@@ -3,9 +3,18 @@ A very judgmental bird
 
 # Pre-compile
 
-Before the program is even compiled, you must copy `twitter/secrets.h.sample` to `twitter/secrets.h` and then fill in the two variables with your Twitter app's keys.
+Before the program is even compiled, you must copy `twitter/secrets.h.sample` to `twitter/secrets.h` as well as `twitter-rb/secrets.rb.sample` to `twitter-rb/secrets.rb` and then fill in the two variables with your Twitter app's keys.
 
 # Compiling
+
+The C server and C analyzer can be compiled by running `make` in the root directory.
+All compiled binaries will be outputted into the `out/` directory.
+
+Be sure to run `bundle install` to make sure that the Twitter grabber works!
+
+Note: The following paragraph applies to the failed attempt to write the Twitter grabber in C++.
+If you seek to make this work using C++, follow the instruction below; otherwise, use the Ruby grabber.
+To use the C++ Twitter grabber, you will also need to uncomment Makefile rules that were removed when these areas were abandoned.
 
 The Twitter handler aspect of this code is dependent on [twitcurl](https://github.com/swatkat/twitcurl).
 As a result, to build this program, it is necessary to build this library.
@@ -19,8 +28,8 @@ libraries.
 
 # Running
 
-To run, for now use `./run.sh`.
-(This only applies to the Twitter grabber.)
-In the future, better scripts will probably be made.
-This is necessary because the library load path needs to be appended
-in order for the Twitter library to be used.
+To run, for use `./run.sh`.
+This will run the server which is the mastermind that links every other file.
+
+Note: If you seek to run the C++ Twitter grabber after compiling it, you will likely need to append the library load path to be able to run it.
+An example of doing this is contained in the old `run.sh`, which you can find [here](https://raw.githubusercontent.com/Sammidysam/raven/738d057b33675ace3fafec37d8ffb740e3d0a5b2/run.sh).
