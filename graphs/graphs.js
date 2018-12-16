@@ -87,7 +87,7 @@ setGraph = function (person) {
 	var canvas = $("#canvasDiv")
 
 	canvasDiv.text("Loading data...")
-	canvas.html("")
+	canvas.html("<canvas id=\"canvas\"></canvas>")
 
 	var file = "/" + person + ".out"
 
