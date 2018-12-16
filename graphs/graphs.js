@@ -1,4 +1,4 @@
-createData = function (data) {
+createData = function (person, data) {
 	// Split our file into lines, removing any blank lines.
 	var lines = data.split("\n").filter(function (a) {
 		return a != ""
@@ -36,6 +36,7 @@ createData = function (data) {
 	// and the total analysis score
 	var total = 0
 	var return_data = {
+		person: person,
 		tweet_dates: [],
 		ratings: []
 	}
@@ -52,7 +53,7 @@ createData = function (data) {
 
 createGraph = function (data) {
 	// Create the chart.
-    var ctx = document.getElementById("canvas").getContext('2d');
+    var ctx = document.getElementById("canvas").getContext('2d')
     var myChart = new Chart(ctx, {
         type: 'line',
         data: {
@@ -64,6 +65,10 @@ createGraph = function (data) {
             }]
         },
         options: {
+			title: {
+				display: true,
+				text: data.person
+			},
             scales: {
                 yAxes: [{
                     ticks: {
@@ -76,6 +81,34 @@ createGraph = function (data) {
 }
 
 // Retrieve our data and process it.
-$.get("/James Comey.out", function (data) {
-	createGraph(createData(data))
+setGraph = function (person) {
+	var file = "/" + person + ".out"
+
+	$.get(file, function (data) {
+		createGraph(createData(person, data))
+	})
+}
+
+// Determine who we will display analysis for.
+$.get("/analyses.txt", function (analyses) {
+	// Split our file into lines, removing any blank lines.
+    var lines = analyses.split("\n").filter(function (a) {
+        return a != ""
+    })
+
+	// Set the options in our select window.
+	var select = $("select#selectPeople")
+
+	$.each(lines, function () {
+		select.append($("<option>").val(this).html(this))
+	})
+
+	// Set the graph to change when the select changes.
+	select.change(function () {
+		setGraph(this.value)
+	})
+
+	// Start the graph with the current value.
+	select[0].selected = true
+	setGraph($("#selectPeople option:selected").val())
 })
