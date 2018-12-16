@@ -76,6 +76,6 @@ createGraph = function (data) {
 }
 
 // Retrieve our data and process it.
-$.get("/James%20Comey.out", function (data) {
+$.get("/James Comey.out", function (data) {
 	createGraph(createData(data))
 })
