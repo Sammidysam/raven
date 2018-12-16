@@ -132,7 +132,7 @@ dastardly,15
 dead,9
 decaying,11
 decay,11
-deformed,12 
+deformed,12
 deform,10
 deny,10
 deplorable,10
@@ -230,4 +230,3 @@ villain,10
 wicked,13
 worthless,12
 yucky,11
-

@@ -135,12 +135,12 @@ awesome,11
 super,12
 superb,14
 happy,15
-balance,4 
+balance,4
 beautiful,12
 bliss,12
 beneficial,11
 brave,10
-bravo,16 
+bravo,16
 brilliant,12
 bubbly,11
 beauty,17
@@ -197,7 +197,7 @@ cute,13
 dance,3
 dainty,8
 dandy,7
-darling,12 
+darling,12
 dashing,6
 dazzle,9
 dear,11
@@ -214,12 +214,12 @@ desirable,11
 dream,10
 dreamer,11
 ease,10
-eases,11 
+eases,11
 bloom,9
 fortunate,7
 genius,9
 generous,12
-enthusiastic,15 
+enthusiastic,15
 family,11
 funny,9
 glad,11
@@ -257,7 +257,7 @@ sympathetic,11
 smart,2
 thankful,12
 therapeutic,12
-together,5 
+together,5
 thrilled,11
 unity,7
 value,5
@@ -265,7 +265,3 @@ victory,5
 vital,5
 well,2
 yippee,15
-
-
-
-
