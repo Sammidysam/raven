@@ -82,11 +82,18 @@ createGraph = function (data) {
 
 // Retrieve our data and process it.
 setGraph = function (person) {
+	// Start by informing the user that we are loading data.
+	var canvasDiv = $("#loading")
+
+	canvasDiv.text("Loading data...")
+
 	var file = "/" + person + ".out"
 
 	$.get(file, function (data) {
 		createGraph(createData(person, data))
 	})
+
+	canvasDiv.text("")
 }
 
 // Determine who we will display analysis for.
