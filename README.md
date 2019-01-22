@@ -1,6 +1,6 @@
 # raven
 A very judgmental bird.
-Raven is a program that gauges the public's opinion on any topic or person. It gathers tweets and uses a sentiment analysis algorithm to develop a numberic favorability rating.
+Raven is a program that gauges the public's opinion on any topic or person. It gathers tweets and uses a sentiment analysis algorithm to develop a numeric favorability rating.
 
 # Pre-compile
 
